@@ -13,7 +13,7 @@ public class BaseDAO {
 		}
 	}
 	
-	protected Connection getConnection() throws SQLException{
+	public Connection getConnection() throws SQLException{
 		String url = "jdbc:mysql://localhost/livro";
 		Connection conn = DriverManager.getConnection(url, "livro", "livro123");
 		return conn;
