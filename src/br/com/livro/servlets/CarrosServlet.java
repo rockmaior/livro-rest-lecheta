@@ -62,6 +62,39 @@ public class CarrosServlet extends HttpServlet {
 		}
 		
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		Carro carro = getCarroFromRequest(req);
+		carroService.save(carro);
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String json = gson.toJson(carro);
+		ServletUtil.writeJSON(resp, json);
+	
+	}
+
+	private Carro getCarroFromRequest(HttpServletRequest req) {
+		//Cria o carro
+		Carro c = new Carro();
+		String id = req.getParameter("id");
+		
+		if (id != null) {
+			// Se informou o id, buscar-o do banco de dados
+			c = carroService.getCarro(Long.parseLong(id));
+			
+		}
+		c.setDesc(req.getParameter("descricao"));
+		c.setLatitude(req.getParameter("lat"));
+		c.setLongitude(req.getParameter("lng"));
+		c.setNome(req.getParameter("nome"));
+		c.setTipo(req.getParameter("tipo"));
+		c.setUrlFoto(req.getParameter("url_foto"));
+		c.setUrlVideo(req.getParameter("url_video"));
+		
+		return c;
+		
+	}
 
 
 }
