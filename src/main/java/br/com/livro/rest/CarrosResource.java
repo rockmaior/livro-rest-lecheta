@@ -12,6 +12,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import br.com.livro.domain.Carro;
 import br.com.livro.domain.CarroService;
 import br.com.livro.domain.Response;
@@ -19,54 +22,55 @@ import br.com.livro.domain.Response;
 @Path("/carros")
 @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=UTF-8")
+@Component
 public class CarrosResource {
-	private CarroService carroService = new CarroService();
+	@Autowired
+	private CarroService carroService;
 
 	@GET
-	public List<Carro> get(){
+	public List<Carro> get() {
 		List<Carro> carros = carroService.getCarros();
 		return carros;
 	}
+
 	@GET
 	@Path("/nome/{nome}")
-	public List<Carro> getByNome(@PathParam("nome") String nome){
+	public List<Carro> getByNome(@PathParam("nome") String nome) {
 		List<Carro> carros = carroService.findByName(nome);
 		return carros;
 	}
-	
+
 	@GET
 	@Path("{id}")
-	public Carro get(@PathParam("id") long id){
+	public Carro get(@PathParam("id") long id) {
 		Carro carro = carroService.getCarro(id);
 		return carro;
 	}
-	
+
 	@GET
 	@Path("/tipo/{tipo}")
-	public List<Carro> getByTipo(@PathParam("tipo") String tipo){
+	public List<Carro> getByTipo(@PathParam("tipo") String tipo) {
 		List<Carro> carros = carroService.findByTipo(tipo);
 		return carros;
 	}
-	
+
 	@DELETE
 	@Path("{id}")
 	public Response delete(@PathParam("id") long id) {
 		carroService.delete(id);
 		return Response.Ok("Carro deletado com sucesso");
 	}
-	
+
 	@POST
 	public Response post(Carro c) {
 		carroService.save(c);
 		return Response.Ok("Carro salvo com sucesso");
 	}
-	
+
 	@PUT
 	public Response put(Carro c) {
 		carroService.save(c);
 		return Response.Ok("Carro atualizado com sucesso");
 	}
-	
-	
-	
+
 }
