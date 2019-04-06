@@ -20,7 +20,6 @@ public class CarroTest extends TestCase {
 		carroService = (CarroService) SpringUtil.getInstance().getBean(CarroService.class);
 	}
 
-	@Test
 	public void testListaCarros() {
 		List<Carro> carros = carroService.getCarros();
 		Assert.assertNotNull(carros);
@@ -39,7 +38,6 @@ public class CarroTest extends TestCase {
 
 	}
 
-	@Test
 	public void testSalvarDeletarCarro() {
 		Carro c = new Carro();
 

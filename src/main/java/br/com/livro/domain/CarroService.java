@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CarroService {
+	@Autowired
 	private CarroDAO db;
 	
 	public List<Carro> getCarros(){

@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+@Component
 public class CarroDAO extends BaseDAO {
 	public Carro getCarroById(Long id) throws SQLException {
 
