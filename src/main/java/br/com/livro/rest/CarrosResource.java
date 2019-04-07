@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,6 +16,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.io.IOUtils;
@@ -80,27 +82,27 @@ public class CarrosResource {
 		carroService.save(c);
 		return Response.Ok("Carro atualizado com sucesso");
 	}
-	
+
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response postFoto(final FormDataMultiPart multiPart) {
 		if (multiPart != null && multiPart.getFields() != null) {
 			Set<String> keys = multiPart.getFields().keySet();
 			for (String key : keys) {
-				//Obtem o input stream para ler o arquivo
+				// Obtem o input stream para ler o arquivo
 				FormDataBodyPart field = multiPart.getField(key);
 				InputStream in = field.getValueAs(InputStream.class);
 				try {
-					//Salva o arquivo
+					// Salva o arquivo
 					String fileName = field.getFormDataContentDisposition().getFileName();
-					
-					//Pasta temporaria da JVM
+
+					// Pasta temporaria da JVM
 					File tmpDir = new File(System.getProperty("java.io.tmpdir"), "carros");
 					if (!tmpDir.exists()) {
-						//Cria a pasta carro se nao existe
+						// Cria a pasta carro se nao existe
 						tmpDir.mkdir();
 					}
-					//cria o arquivo
+					// cria o arquivo
 					File file = new File(tmpDir, fileName);
 					FileOutputStream out = new FileOutputStream(file);
 					IOUtils.copy(in, out);
@@ -113,7 +115,7 @@ public class CarrosResource {
 				}
 			}
 		}
-		
+
 		return Response.Ok("Requisição inválida");
 	}
 

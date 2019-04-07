@@ -2,9 +2,6 @@ package test;
 
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import br.com.livro.domain.Carro;
 import br.com.livro.domain.CarroService;
 import junit.framework.TestCase;
@@ -22,19 +19,19 @@ public class CarroTest extends TestCase {
 
 	public void testListaCarros() {
 		List<Carro> carros = carroService.getCarros();
-		Assert.assertNotNull(carros);
+		assertNotNull(carros);
 
 		// Valida se encontrou algo
 		assertTrue(carros.size() > 0);
 
 		Carro tucker = carroService.findByName("Tucker 1948").get(0);
-		Assert.assertEquals("Tucker 1948", tucker.getNome());
+		assertEquals("Tucker 1948", tucker.getNome());
 
 		Carro ferrari = carroService.findByName("Ferrari FF").get(0);
-		Assert.assertEquals("Ferrari FF", ferrari.getNome());
+		assertEquals("Ferrari FF", ferrari.getNome());
 
 		Carro bugatti = carroService.findByName("Bugatti Veyron").get(0);
-		Assert.assertEquals("Bugatti Veyron", bugatti.getNome());
+		assertEquals("Bugatti Veyron", bugatti.getNome());
 
 	}
 
@@ -53,18 +50,18 @@ public class CarroTest extends TestCase {
 
 		// id do carro salvo
 		Long id = c.getId();
-		Assert.assertNotNull(id);
+		assertNotNull(id);
 
 		// Busca no banco de dados para confirmar se o carro foi salvo
 
 		c = carroService.getCarro(id);
-		Assert.assertEquals("Teste", c.getNome());
-		Assert.assertEquals("Teste desc", c.getDesc());
-		Assert.assertEquals("lat", c.getLatitude());
-		Assert.assertEquals("lng", c.getLongitude());
-		Assert.assertEquals("tipo", c.getTipo());
-		Assert.assertEquals("url foto aqui", c.getUrlFoto());
-		Assert.assertEquals("url video aqui", c.getUrlVideo());
+		assertEquals("Teste", c.getNome());
+		assertEquals("Teste desc", c.getDesc());
+		assertEquals("lat", c.getLatitude());
+		assertEquals("lng", c.getLongitude());
+		assertEquals("tipo", c.getTipo());
+		assertEquals("url foto aqui", c.getUrlFoto());
+		assertEquals("url video aqui", c.getUrlVideo());
 
 		// Atualiza o carro
 
@@ -74,14 +71,14 @@ public class CarroTest extends TestCase {
 		// Busca carro novamente, vai estar atualizado
 
 		c = carroService.getCarro(id);
-		Assert.assertEquals("teste Update", c.getNome());
+		assertEquals("teste Update", c.getNome());
 
 		// Deleta o carro
 		carroService.delete(id);
 
 		// Dessta vez, carro nao existe mais
 		c = carroService.getCarro(id);
-		Assert.assertNull(c);
+		assertNull(c);
 	}
 
 }

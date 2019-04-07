@@ -4,6 +4,15 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 	<display-name>myCarros</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/applicationContext.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 	<!-- OpenSessionInViewFilter pattern -->
 	<filter>
 		<filter-name>sessionFilter</filter-name>
@@ -13,9 +22,9 @@
 		<filter-name>sessionFilter</filter-name>
 		<url-pattern>/rest/*</url-pattern>
 	</filter-mapping>
-	
-	
-	
+
+
+
 	<!-- O filtro OpenSession... precisa estar declarado antes do servlet -->
 	<servlet>
 		<servlet-name>Jersey REST Service</servlet-name>
